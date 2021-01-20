@@ -7,10 +7,10 @@
 @section('title', 'Dashboard')
 @section('login_as', 'Account Officer')
 @section('user-login')
-   
+    {{ Auth::user()->nm_user }}
 @endsection
 @section('user-login2')
-    
+    {{ Auth::user()->nm_user }}
 @endsection
 @section('sidebar-menu')
     @include('backend/ao/sidebar')
@@ -43,16 +43,31 @@
                    <a href="{{ route('ao.target.add') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>&nbsp; Tambah Target</a>
                </div>
                <div class="col-md-12">
+                @if ($message = Session::get('success'))
+                    <div class="alert alert-success alert-block">
+                        <strong>Perhatian </strong>{{ $message }}
+                    </div>
+                    @elseif ($message = Session::get('error'))
+                        <div class="alert alert-danger alert-block">
+                            <strong>Perhatian </strong>{{ $message }}
+                        </div>
+                    @else
+                    <div class="alert alert-info alert-block">
+                        <i class="fa fa-info-circle"></i>&nbsp; <strong>Perhatian </strong>Berikut target yang sudah ditambahkan, target hanya dapat di edit tanpa dapat dihapus
+                    </div>
+                @endif
+               </div>
+               <div class="col-md-12">
                    <table class="table table-hover table-bordered" id="table">
                        <thead>
                            <tr>
                                <th>No</th>
-                               <th>Nama Unit</th>
-                               <th>Alamat</th>
-                               <th>Kota</th>
-                               <th>Kategori Unit</th>
-                               <th>Status Aktif</th>
-                               <th>Ubah Status</th>
+                               <th>Jenis Produk</th>
+                               <th>Target</th>
+                               <th>No Registrasi</th>
+                               <th>Kategori Target</th>
+                               <th>Status Realisasi</th>
+                               <th>Status Final</th>
                            </tr>
                        </thead>
                        <tbody>
@@ -62,30 +77,12 @@
                            @foreach ($targets as $target)
                                <tr>
                                    <td>{{ $no++ }}</td>
-                                   <td>{{ $target->nm_unit }}</td>
-                                   <td>{{ $target->alamat }}</td>
-                                   <td>{{ $target->kota }}</td>
+                                   <td>{{ $target->nm_jenis_produk }}</td>
+                                   <td>{{ $target->nm_targer }}</td>
+                                   <td>{{ $target->no_registrasi }}</td>
                                    <td>{{ $target->kategori }}</td>
-                                   <td>
-                                       @if ($target->status_unit == "1")
-                                           <label class="badge badge-primary">Aktif</label>
-                                           @else
-                                           <label class="badge badge-danger">Tidak Aktif</label>
-                                       @endif
-                                   </td>
-                                   <td>
-                                    @if ($target->status_unit == "1")
-                                        <form action="{{ route('administrator.target.non_aktifkan_status', [$target->id]) }}" method="POST">
-                                            {{ csrf_field() }} {{ method_field('PATCH') }}
-                                            <button type="submit" class="btn btn-danger btn-sm" style="color:white; cursor:pointer;"><i class="fa fa-thumbs-down"></i></button>
-                                        </form>
-                                        @else
-                                        <form action="{{ route('administrator.target.aktifkan_status', [$target->id]) }}" method="POST">
-                                            {{ csrf_field() }} {{ method_field('PATCH') }}
-                                            <button type="submit" class="btn btn-primary btn-sm" style="color:white; cursor:pointer;"><i class="fa fa-thumbs-up"></i></button>
-                                        </form>
-                                    @endif
-                                   </td>
+                                   <td>{{ $target->status_realisasi }}</td>
+                                   <td></td>
                                </tr>
                            @endforeach
                        </tbody>

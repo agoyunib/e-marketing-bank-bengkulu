@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('foto')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('jabatan',['ao','supervisi','pimpinan','administrator']);
+            $table->enum('role',['ao','supervisi','pimpinan','administrator']);
             $table->enum('status_user',['1','0'])->default('1');
             $table->rememberToken();
             $table->timestamps();

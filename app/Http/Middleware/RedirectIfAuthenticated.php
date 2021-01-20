@@ -16,12 +16,37 @@ class RedirectIfAuthenticated
      * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
-    {
-        if (Auth::guard($guard)->check()) {
-            return redirect(RouteServiceProvider::HOME);
-        }
+    //kode lama
+    // public function handle($request, Closure $next, $guard = null)
+    // {
+    //     if (Auth::guard($guard)->check()) {
+    //         return redirect(RouteServiceProvider::HOME);
+    //     }
 
+    //     return $next($request);
+    // }
+
+    //kode yang baru ditambahkan
+    public function handle($request, Closure $next, $guard = null) {
+        if (Auth::guard($guard)->check()) {
+          $role = Auth::user()->role; 
+      
+          switch ($role) {
+            case 'administrator':
+               return '/administrator/dashboard';
+               break;
+            case 'ao':
+               return '/account_officer/dashboard';
+               break;
+               case 'pimpinan':
+                return '/pimpinan/dashboard';
+                break; 
+      
+            default:
+                return '/supervisoe/dashboard';
+               break;
+          }
+        }
         return $next($request);
     }
 }

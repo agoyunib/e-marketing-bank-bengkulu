@@ -24,7 +24,7 @@ class UsersTableSeeder extends Seeder
                 'unit_id'  => $faker->randomElement($units),
                 'email'	=> Str::random(10) . '@mail.com',
                 'password'	=> bcrypt('secret'),
-                'jabatan'   => $faker->randomElement(['ao','supervisi','pimpinan','administrator']),
+                'role'   => $faker->randomElement(['ao','supervisi','pimpinan','administrator']),
             ]);
         }
     }
