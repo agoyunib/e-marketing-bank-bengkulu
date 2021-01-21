@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Route::group(['prefix'  => 'account_officer/', 'middleware'  =>  ['auth','role:ao']],function(){
@@ -28,6 +28,7 @@ Route::group(['prefix'  => 'account_officer/target_saya', 'middleware'  =>  ['au
     Route::post('/tambah_target','AO\TargetController@post')->name('ao.target.post');
     Route::patch('/aktifkan_status/{id}','AO\TargetController@aktifkanStatus')->name('ao.target.aktifkan_status');
     Route::patch('/non_aktifkan_status/{id}','AO\TargetController@nonAktifkanStatus')->name('ao.target.non_aktifkan_status');
+    Route::patch('/usulkan/{id}','AO\TargetController@usulkan')->name('ao.target.usulkan');
 });
 
 Route::group(['prefix'  => 'supervisor/', 'middleware'  =>  'auth','role:supervisi'],function(){

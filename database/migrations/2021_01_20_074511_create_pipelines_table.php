@@ -27,9 +27,11 @@ class CreatePipelinesTable extends Migration
             $table->string('alat_promosi');
             $table->string('total_target');
             $table->enum('periode_target',['bulanan','triwulan']);
-            $table->enum('status_realisasi',['target','pipeline','ditolak','berhasil','tidak_berhasil'])->default('target');
+            $table->enum('status_realisasi',['target','pipeline','ditolak','berhasil','tidak_berhasil','verified','verification_failed'])->default('target');
             $table->text('keterangan_status')->nullable();
-            $table->enum('status_final',['1','0'])->nullable();
+            $table->enum('status_usulan',['1','0'])->default('0');
+            $table->date('waktu_mengusulkan')->nullable();
+            $table->string('status_final')->nullable();
             $table->timestamps();
         });
     }

@@ -79,7 +79,7 @@
                 <div class="profile_pic">
                   <img src="{{ asset('assets/images/logo.png') }}"style="width:70%; height:60px; background:#fff; margin-left:15%;z-index:1000; position:inherit;margin-top:15px;border: 1px solid rgba(52,73,94,0.44);padding: 4px;border-radius:50%;filter:drop-shadow(0px 1px 5px #fff);" alt="..." class="img-circle profile_img">
                 </div>
-                <div class="profile_info" style="padding-top:18px;">
+                <div class="profile_info" style="padding-top:15px;">
                   <span style="color:#fff000; font-weight:bold;">@yield('login_as'),</span>
                   <h2>
                     @yield('user-login')

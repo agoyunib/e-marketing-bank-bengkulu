@@ -40,6 +40,15 @@
         <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
            <div class="row">
                <div class="col-md-12">
+                <div class="alert alert-info alert-block">
+                    <i class="fa fa-info-circle"></i>&nbsp; <strong>Perhatian </strong>Berikut beberapa informasi mengenai target dari account officer :
+                    <ol>
+                        <li>Harap untuk mengisi target yang sesuai dan benar</li>
+                        <li>Target yang sudah ditambahkan tidak dapat dihapus kembali</li>
+                        <li>Target yang statusnya menunggu masih dapat diubah oleh Account Officer</li>
+                        <li>target yang statusnya sudah diusulkan tidak dapat diubah kembali</li>
+                    </ol>
+                </div>
                    <a href="{{ route('ao.target.add') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>&nbsp; Tambah Target</a>
                </div>
                <div class="col-md-12">
@@ -52,9 +61,7 @@
                             <strong>Perhatian </strong>{{ $message }}
                         </div>
                     @else
-                    <div class="alert alert-info alert-block">
-                        <i class="fa fa-info-circle"></i>&nbsp; <strong>Perhatian </strong>Berikut target yang sudah ditambahkan, target hanya dapat di edit tanpa dapat dihapus
-                    </div>
+                    
                 @endif
                </div>
                <div class="col-md-12">
@@ -62,12 +69,14 @@
                        <thead>
                            <tr>
                                <th>No</th>
-                               <th>Jenis Produk</th>
                                <th>Target</th>
-                               <th>No Registrasi</th>
+                               <th>Jenis Produk</th>
                                <th>Kategori Target</th>
+                               <th>Total Target</th>
                                <th>Status Realisasi</th>
-                               <th>Status Final</th>
+                               <th>Status Usulan</th>
+                               <th>Usulkan</th>
+                               <th>Aksi</th>
                            </tr>
                        </thead>
                        <tbody>
@@ -77,12 +86,55 @@
                            @foreach ($targets as $target)
                                <tr>
                                    <td>{{ $no++ }}</td>
+                                   <td>
+                                       {{ $target->nm_target }}
+                                       <br />
+                                       <small>Diinputkan {{ $target->created_at->diffForHumans() }}</small>
+                                    </td>
                                    <td>{{ $target->nm_jenis_produk }}</td>
-                                   <td>{{ $target->nm_targer }}</td>
-                                   <td>{{ $target->no_registrasi }}</td>
                                    <td>{{ $target->kategori }}</td>
-                                   <td>{{ $target->status_realisasi }}</td>
-                                   <td></td>
+                                   <td>Rp.{{ number_format($target->total_target,2) }}</td>
+                                   <td>
+                                       @if ($target->status_realisasi == "target")
+                                           <label class="badge badge-warning">Target</label>
+                                           @elseif ($target->status_realisasi == "pipeline")
+                                           <label class="badge badge-primary">Pipeline</label>
+                                           @elseif ($target->status_realisasi == "ditolak")
+                                           <label class="badge badge-muted">Target Ditolak</label>
+                                           @elseif ($target->status_realisasi == "berhasil")
+                                           <label class="badge badge-info">Berhasil</label>
+                                           @elseif ($target->status_realisasi == "tidak_berhasil")
+                                           <label class="badge badge-secondary">Tidak Berhasil</label>
+                                           @elseif ($target->status_realisasi == "verified")
+                                           <label class="badge badge-success">Terverifikasi</label>
+                                           @elseif ($target->status_realisasi == "verification_failed")
+                                           <label class="badge badge-danger">Verifikasi Gagal</label>
+                                        @endif
+                                   </td>
+                                   <td>
+                                        @if ($target->status_usulan == "1")
+                                           <label class="badge badge-success">Sudah Diusulkan</label>
+                                            @else
+                                           <label class="badge badge-warning">Menunggu</label>
+                                        @endif
+                                   </td>
+                                   <td>
+                                       @if ($target->status_usulan == "0")
+                                            <form action="{{ route('ao.target.usulkan',[$target->id]) }}" method="POST">
+                                            {{ csrf_field() }} {{ method_field('PATCH') }}
+                                            <button type="submit" name="submit" class="btn btn-primary btn-sm"><i class="fa fa-arrow-right"></i>&nbsp; Usulkan</button>
+                                            </form>
+                                            @else
+                                            <button class="btn btn-primary btn-sm" disabled><i class="fa fa-arrow-right"></i>&nbsp; Usulkan</button>
+                                       @endif
+                                   </td>
+                                   <td>
+                                       @if ($target->status_usulan == "0")
+                                           <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp; Ubah</a>
+                                           @else
+                                           <a class="text-danger">target sudah diusulkan dan tidak bisa diubah</a>
+                                       @endif
+                                   </td>
                                </tr>
                            @endforeach
                        </tbody>

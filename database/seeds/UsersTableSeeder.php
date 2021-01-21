@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
                 'no_nrpp'	=> $faker->randomDigit,
                 'no_hp'	    => $faker->randomDigit,
                 'unit_id'  => $faker->randomElement($units),
-                'email'	=> Str::random(10) . '@mail.com',
+                'email'	=> $faker->randomDigit. '@mail.com',
                 'password'	=> bcrypt('secret'),
                 'role'   => $faker->randomElement(['ao','supervisi','pimpinan','administrator']),
             ]);

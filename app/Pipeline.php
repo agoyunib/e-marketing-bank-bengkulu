@@ -14,7 +14,7 @@ class Pipeline extends Model
         'alamat',
         'kota',
         'no_hp',
-        'kategori_target',
+        'kategori',
         'target_penambahan_dana',
         'alat_promosi',
         'jenis_produk_id',

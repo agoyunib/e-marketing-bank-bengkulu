@@ -16,7 +16,9 @@ class TargetController extends Controller
     public function index(){
         $targets = Pipeline::join('users','users.id','pipelines.ao_id')
                             ->join('jenis_produks','jenis_produks.id','pipelines.jenis_produk_id')
-                            ->select('nm_user','nm_jenis_produk','nm_target','no_registrasi','kategori','status_realisasi','status_final')
+                            ->select('pipelines.id as id','nm_user','nm_jenis_produk','nm_target','total_target','kategori','status_realisasi','status_usulan','pipelines.created_at')
+                            ->where('ao_id',Auth::user()->id)
+                            ->orderBy('pipelines.id','desc')
                             ->get();
         return view('backend/ao/target/index',compact('targets'));
     }
@@ -58,12 +60,7 @@ class TargetController extends Controller
                 'ao_id' =>  Auth::user()->id,
             ]);
             $last = Pipeline::latest()->select('id')->first();
-            PipelineDetail::create([
-                'pipeline_id'   =>  $last->id,
-                'user_id'       =>  Auth::user()->id,
-                'status_realisasi'  =>  'target',
-            ]);
-            DB::commit();
+            
             return redirect()->route('ao.target')->with(['success'   =>  'Target berhasil ditambahkan']);
         } catch (\Exception $e) {
             return redirect()->route('ao.target.add')->with(['error'   =>  'Target gagal ditambahkan']);
@@ -71,5 +68,21 @@ class TargetController extends Controller
         }
 
         return redirect()->route('ao.target')->with(['success'   =>  'Target berhasil ditambahkan']);
+    }
+
+    public function usulkan($id){
+        $mytime = \Carbon\Carbon::now();
+        $pipeline = Pipeline::find($id);
+        Pipeline::where('id',$id)->update([
+            'status_usulan' =>  '1',
+            'waktu_mengusulkan' =>  $mytime->toDateTimeString(),
+        ]);
+
+        PipelineDetail::create([
+            'pipeline_id'   =>  $pipeline->id,
+            'user_id'       =>  Auth::user()->id,
+            'status_realisasi'  =>  'target',
+        ]);
+        DB::commit();
     }
 }

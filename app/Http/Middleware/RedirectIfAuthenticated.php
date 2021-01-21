@@ -40,10 +40,14 @@ class RedirectIfAuthenticated
                break;
                case 'pimpinan':
                 return '/pimpinan/dashboard';
+                break;
+                case 'supervisor':
+                return '/supervisor/dashboard';
                 break; 
       
             default:
-                return '/supervisoe/dashboard';
+                
+                return '/login';
                break;
           }
         }
