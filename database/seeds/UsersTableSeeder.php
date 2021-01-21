@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
         $units = Unit::all()->pluck('id')->toArray();
-        for ($i=0; $i <2 ; $i++) { 
+        for ($i=0; $i <30 ; $i++) { 
             \App\User::create([
                 'nm_user'	=> $faker->name,
                 'no_nrpp'	=> $faker->randomDigit,
