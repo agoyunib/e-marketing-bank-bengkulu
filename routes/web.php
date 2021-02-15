@@ -42,6 +42,14 @@ Route::group(['prefix'  => 'administrator/'],function(){
     Route::get('/','Administrator\DashboardController@index')->name('administrator.dashboard');
 });
 
+Route::group(['prefix'  => 'administrator/manajemen_alatpromosi'],function(){
+    Route::get('/','Administrator\AlatPromosiController@index')->name('administrator.alat_promosi');
+    Route::get('/tambah_alatpromosi','Administrator\AlatPromosiController@add')->name('administrator.alat_promosi.add');
+    Route::post('/tambah_alatpromosi','Administrator\AlatPromosiController@post')->name('administrator.alat_promosi.post');
+    Route::patch('/aktifkan_status/{id}','Administrator\AlatPromosiController@aktifkanStatus')->name('administrator.alat_promosi.aktifkan_status');
+    Route::patch('/non_aktifkan_status/{id}','Administrator\AlatPromosiController@nonAktifkanStatus')->name('administrator.alat_promosi.non_aktifkan_status');
+});
+
 Route::group(['prefix'  => 'administrator/manajemen_unit'],function(){
     Route::get('/','Administrator\UnitController@index')->name('administrator.unit');
     Route::get('/tambah_unit','Administrator\UnitController@add')->name('administrator.unit.add');
