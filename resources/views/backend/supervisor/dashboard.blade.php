@@ -1,13 +1,9 @@
 @extends('layouts.layout')
 @section('user-login')
-    {{-- @if(Session::get('login') && Session::get('login',1))
-        {{ Session::get('nm_dosen') }}
-    @endif --}}
+    {{ Auth::user()->nm_user }}
 @endsection
 @section('user-login2')
-    {{-- @if(Session::get('login') && Session::get('login',1))
-        {{ Session::get('nm_dosen') }}
-    @endif --}}
+    {{ Auth::user()->nm_user }}
 @endsection
 @section('login_as', 'Account Officer')
 @section('sidebar-menu')

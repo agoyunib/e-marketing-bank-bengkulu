@@ -7,10 +7,10 @@
 @section('title', 'Dashboard')
 @section('login_as', 'Administrator')
 @section('user-login')
-   
+    {{ Auth::user()->nm_user }}
 @endsection
 @section('user-login2')
-    
+    {{ Auth::user()->nm_user }}
 @endsection
 @section('sidebar-menu')
     @include('backend/administrator/sidebar')
