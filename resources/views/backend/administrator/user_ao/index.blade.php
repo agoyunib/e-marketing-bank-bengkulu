@@ -114,41 +114,46 @@
                    <table class="table table-hover table-bordered" id="table">
                        <thead>
                            <tr>
-                               <th>No</th>
-                               <th>Nama Unit</th>
-                               <th>email</th>
-                               <th>Kota</th>
-                               <th>Kategori Unit</th>
-                               <th>Status Aktif</th>
-                               <th>Ubah Status</th>
+                            <th>No</th>
+                            <th>Nomor NRPP</th>
+                            <th>Nama administrator</th>
+                            <th>Nama Unit</th>
+                            <th>email</th>
+                          
+                            <th>Jabatan</th>
+                            <th>Nomor HP</th>
+                          <th>Status Aktif</th>
+                          <td>Ubah Status</td>
                            </tr>
                        </thead>
                        <tbody>
                            @php
                                $no=1;
                            @endphp
-                           @foreach ($units as $unit)
+                           @foreach ($user_aos as $user_ao)
                                <tr>
                                    <td>{{ $no++ }}</td>
-                                   <td>{{ $unit->nm_unit }}</td>
-                                   <td>{{ $unit->alamat }}</td>
-                                   <td>{{ $unit->kota }}</td>
-                                   <td>{{ $unit->kategori }}</td>
+                                   <td>{{ $user_ao->no_nrpp }}</td>
+                                   <td>{{ $user_ao->nm_user }}</td>
+                                   <td>{{ $user_ao->nm_unit }}</td>
+                                   <td>{{ $user_ao->email }}</td>
+                                   <td>{{ $user_ao->jabatan }}</td>
+                                   <td>{{ $user_ao->no_hp }}</td>
                                    <td>
-                                       @if ($unit->status_unit == "1")
+                                       @if ($user_ao->status_user == "1")
                                            <label class="badge badge-primary">Aktif</label>
                                            @else
                                            <label class="badge badge-danger">Tidak Aktif</label>
                                        @endif
                                    </td>
                                    <td>
-                                    @if ($unit->status_unit == "1")
-                                        <form action="{{ route('administrator.unit.non_aktifkan_status', [$unit->id]) }}" method="POST">
+                                    @if ($user_ao->status_user== "1")
+                                        <form action="{{ route('administrator.user_ao.non_aktifkan_status', [$user_ao->id]) }}" method="POST">
                                             {{ csrf_field() }} {{ method_field('PATCH') }}
                                             <button type="submit" class="btn btn-danger btn-sm" style="color:white; cursor:pointer;"><i class="fa fa-thumbs-down"></i></button>
                                         </form>
                                         @else
-                                        <form action="{{ route('administrator.unit.aktifkan_status', [$unit->id]) }}" method="POST">
+                                        <form action="{{ route('administrator.user_ao.aktifkan_status', [$user_ao->id]) }}" method="POST">
                                             {{ csrf_field() }} {{ method_field('PATCH') }}
                                             <button type="submit" class="btn btn-primary btn-sm" style="color:white; cursor:pointer;"><i class="fa fa-thumbs-up"></i></button>
                                         </form>

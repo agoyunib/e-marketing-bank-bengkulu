@@ -38,12 +38,12 @@
             <i class="fa fa-tasks"></i>&nbsp;Manajemen Unit E-Marketing
         </header>
         <div class="panel-body" style="border-top: 1px solid #eee; padding:15px; background:white;">
-            <form action="{{ route('administrator.user_supervisi.post') }}" method="POST">
+            <form action="{{ route('administrator.user_administrator.post') }}" method="POST">
                 {{ csrf_field() }} {{ method_field('POST') }}
                 <div class="row">
                     <div class="col-md-12">
                         <div class="alert alert-info alert-block">
-                            <i class="fa fa-info-circle"></i>&nbsp; Silahkan tambahkan Supervisi baru jika diperlukan.
+                            <i class="fa fa-info-circle"></i>&nbsp; Silahkan tambahkan administrator jika diperlukan.
                         </div>
                     </div>
 
@@ -58,7 +58,7 @@
                     </div>
 
                     <div class="form-status_unit col-md-4">
-                        <label>Nama Supervisi</label>
+                        <label>Nama administrator</label>
                         <input type="text" name="nm_user" id="nm_user" class="form-control @error('nm_user') is-invalid @enderror">
                         @error('nm_user')
                             <div class="invalid-feedback">
@@ -76,7 +76,7 @@
                             </div>
                         @enderror
                     </div>
-{{ $errors }}
+
                     <div class="form-status_unit col-md-4">
                         <label>Password</label>
                         <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id=""></textarea>
@@ -126,7 +126,7 @@
                            <tr>
                                <th>No</th>
                                <th>Nomor NRPP</th>
-                               <th>Nama Supervisi</th>
+                               <th>Nama administrator</th>
                                <th>Nama Unit</th>
                                <th>email</th>
                              
@@ -140,31 +140,30 @@
                            @php
                                $no=1;
                            @endphp
-                           @foreach ($user_supervisis as $user_supervisi)
-                               <tr>
+                           @foreach ($user_administrators as $user_administrator)                  
+                                 <tr>
                                    <td>{{ $no++ }}</td>
-                                   <td>{{ $user_supervisi->no_nrpp }}</td>
-                                   <td>{{ $user_supervisi->nm_user }}</td>
-                                   <td>{{ $user_supervisi->nm_unit }}</td>
-                                   <td>{{ $user_supervisi->email }}</td>
-                                   <td>{{ $user_supervisi->jabatan }}</td>
-                                   <td>{{ $user_supervisi->no_hp }}</td>
+                                   <td>{{ $user_administrator->no_nrpp }}</td>
+                                   <td>{{ $user_administrator->nm_user }}</td>
+                                   <td>{{ $user_administrator->nm_unit }}</td>
+                                   <td>{{ $user_administrator->email }}</td>
+                                   <td>{{ $user_administrator->jabatan }}</td>
+                                   <td>{{ $user_administrator->no_hp }}</td>
                                    <td>
-                                       @if ($user_supervisi->status_user == "1")
+                                       @if($user_administrator->status_user == "1")
                                            <label class="badge badge-primary">Aktif</label>
                                            @else
                                            <label class="badge badge-danger">Tidak Aktif</label>
                                        @endif
                                    </td>
-                               
                                    <td>
-                                    @if ($user_supervisi->status_user == "1")
-                                        <form action="{{ route('administrator.user_supervisi.non_aktifkan_status', [$user_supervisi->id]) }}" method="POST">
+                                    @if ($user_administrator->status_user == "1")
+                                        <form action="{{ route('administrator.user_administrator.non_aktifkan_status', [$user_administrator->id]) }}" method="POST">
                                             {{ csrf_field() }} {{ method_field('PATCH') }}
                                             <button type="submit" class="btn btn-danger btn-sm" style="color:white; cursor:pointer;"><i class="fa fa-thumbs-down"></i></button>
                                         </form>
                                         @else
-                                        <form action="{{ route('administrator.user_supervisi.aktifkan_status', [$user_supervisi->id]) }}" method="POST">
+                                        <form action="{{ route('administrator.user_administrator.aktifkan_status', [$user_administrator->id]) }}" method="POST">
                                             {{ csrf_field() }} {{ method_field('PATCH') }}
                                             <button type="submit" class="btn btn-primary btn-sm" style="color:white; cursor:pointer;"><i class="fa fa-thumbs-up"></i></button>
                                         </form>

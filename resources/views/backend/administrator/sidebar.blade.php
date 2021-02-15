@@ -2,6 +2,9 @@
 <li>
     <a href="{{ route('administrator.dashboard') }}"><i class="fa fa-home"></i>Dashboard</a>
 </li>
+<li>
+    <a href="{{ route('administrator.alat_promosi') }}"><i class="fa fa-tasks"></i>Manajemen Alat Promosi</a>
+</li>
 
 <li>
     <a href="{{ route('administrator.unit') }}"><i class="fa fa-tasks"></i>Manajemen Unit</a>

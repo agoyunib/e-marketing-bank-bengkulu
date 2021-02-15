@@ -47,8 +47,21 @@ Route::group(['prefix'  => 'supervisor/verifikasi_realisasi', 'middleware'  =>  
     Route::patch('/tolak_data_realisasi/{id}', 'Supervisor\VerifikasiRealisasiController@tolakRealisasi')->name('supervisor.tolak_data_realisasi');
 });
 
-Route::group(['prefix'  => 'pimpinan/', 'middleware'    =>  'auth', 'role:pimpinan'], function () {
-    Route::get('/dashboard', 'Pimpinan\DashboardController@index')->name('pimpinan.dashboard');
+Route::group(['prefix'  => 'administrator/manajemen_alatpromosi'],function(){
+    Route::get('/','Administrator\AlatPromosiController@index')->name('administrator.alat_promosi');
+    Route::get('/tambah_alatpromosi','Administrator\AlatPromosiController@add')->name('administrator.alat_promosi.add');
+    Route::post('/tambah_alatpromosi','Administrator\AlatPromosiController@post')->name('administrator.alat_promosi.post');
+    Route::patch('/aktifkan_status/{id}','Administrator\AlatPromosiController@aktifkanStatus')->name('administrator.alat_promosi.aktifkan_status');
+    Route::patch('/non_aktifkan_status/{id}','Administrator\AlatPromosiController@nonAktifkanStatus')->name('administrator.alat_promosi.non_aktifkan_status');
+});
+
+Route::group(['prefix'  => 'administrator/manajemen_unit'],function(){
+    Route::get('/','Administrator\UnitController@index')->name('administrator.unit');
+    Route::get('/tambah_unit','Administrator\UnitController@add')->name('administrator.unit.add');
+    Route::post('/tambah_unit','Administrator\UnitController@post')->name('administrator.unit.post');
+    Route::patch('/aktifkan_status/{id}','Administrator\UnitController@aktifkanStatus')->name('administrator.unit.aktifkan_status');
+    Route::patch('/non_aktifkan_status/{id}','Administrator\UnitController@nonAktifkanStatus')->name('administrator.unit.non_aktifkan_status');
+
 });
 
 Route::group(['prefix'  => 'administrator/', 'middleware'  =>  ['auth', 'role:administrator']], function () {
