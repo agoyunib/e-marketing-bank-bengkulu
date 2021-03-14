@@ -13,13 +13,27 @@ class VerifikasiRealisasiController extends Controller
 {
     public function index()
     {
-        $targets = Pipeline::join('users', 'users.id', 'pipelines.ao_id')
+        $realisasis = Pipeline::join('users', 'users.id', 'pipelines.ao_id')
             ->join('jenis_produks', 'jenis_produks.id', 'pipelines.jenis_produk_id')
-            ->select('pipelines.id as id', 'nm_user', 'nm_jenis_produk', 'nm_target', 'total_target', 'kategori', 'status_realisasi', 'status_usulan', 'pipelines.created_at')
-            ->where('status_realisasi', 'berhasil')
+            ->select('pipelines.id as id', 'users.unit_id', 'nm_user', 'nm_jenis_produk', 'nm_target', 'total_target', 'kategori', 'status_realisasi', 'status_usulan', 'pipelines.created_at')
+            ->where('users.unit_id', Auth::user()->unit_id)
+            ->where('status_realisasi', '=', 'berhasil')
+            ->orWhere(function ($query) {
+                $query->where('status_realisasi', '=', 'verified');
+            })
             ->orderBy('pipelines.id', 'desc')
             ->get();
-        return view('backend/supervisor/verifikasi_realisasi/index', compact('targets'));
+
+        $realisasisDiTolaks = Pipeline::join('users', 'users.id', 'pipelines.ao_id')
+            ->join('jenis_produks', 'jenis_produks.id', 'pipelines.jenis_produk_id')
+            ->select('pipelines.id as id', 'users.unit_id', 'nm_user', 'nm_jenis_produk', 'nm_target', 'total_target', 'kategori', 'status_realisasi', 'status_usulan', 'pipelines.created_at')
+            ->where('users.unit_id', Auth::user()->unit_id)
+            ->where('status_realisasi', 'verification_failed')
+            ->orderBy('pipelines.id', 'desc')
+            ->get();
+
+
+        return view('backend/supervisor/verifikasi_realisasi/index', compact('realisasis', 'realisasisDiTolaks'));
     }
 
     public function verifikasiRealisasi($id)
