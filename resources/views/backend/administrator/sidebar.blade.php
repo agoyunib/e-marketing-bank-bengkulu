@@ -3,6 +3,12 @@
     <a href="{{ route('administrator.dashboard') }}"><i class="fa fa-home"></i>Dashboard</a>
 </li>
 <li>
+    <a href="{{ route('administrator.cabang') }}"><i class="fa fa-tasks"></i>Manajemen Cabang</a>
+</li>
+<li>
+    <a href="{{ route('administrator.capem') }}"><i class="fa fa-tasks"></i>Manajemen Capem</a>
+</li>
+<li>
     <a href="{{ route('administrator.alat_promosi') }}"><i class="fa fa-tasks"></i>Manajemen Alat Promosi</a>
 </li>
 
@@ -17,6 +23,9 @@
 </li>
 <li>
     <a href="{{ route('administrator.jenisproduk') }}"><i class="fa fa-tasks"></i>Manajemen Jenis Produk</a>
+</li>
+<li>
+    <a href="{{ route('administrator.komentar') }}"><i class="fa fa-tasks"></i>Manajemen Komentar</a>
 </li>
 <li>
     <a href="{{ route('administrator.user_ao') }}"><i class="fa fa-tasks"></i>Manajemen AO</a>

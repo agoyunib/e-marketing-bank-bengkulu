@@ -11,8 +11,8 @@ class AdministratorController extends Controller
 {
     public function index(){
         $units = Unit::all();
-        $user_administrators = User::join('units','units.id','users.unit_id')->where('jabatan','administrator')
-        ->select('users.id as id','no_nrpp','nm_user','nm_unit','email','jabatan','no_hp','status_user')
+        $user_administrators = User::join('units','units.id','users.unit_id')->where('role','administrator')
+        ->select('users.id as id','no_nrpp','nm_user','nm_unit','email','role','no_hp','status_user')
         ->get();
         return view('backend/administrator/user_administrator.index',compact('units','user_administrators'));
     }
@@ -26,6 +26,7 @@ class AdministratorController extends Controller
             'no_nrpp'   =>  'required',
             'nm_user'   =>  'required',
             'email'   =>  'required',
+           
             'password'   =>  'required',
             'no_hp'   =>  'required',
             
@@ -37,10 +38,11 @@ class AdministratorController extends Controller
             'unit_id'   =>  $request->unit_id,
             'no_nrpp'   =>  $request->no_nrpp,
             
+            
             'email'   =>  $request->email,
             'password'   =>  bcrypt($request->password),
             'no_hp'   =>  $request->no_hp,
-            'jabatan' => 'administrator',
+            'role' => 'administrator'
         ]);
 
 

@@ -132,6 +132,30 @@ Route::group(['prefix'  => 'administrator/manajemen_administrator'], function ()
     Route::patch('/non_aktifkan_status/{id}', 'Administrator\AdministratorController@nonAktifkanStatus')->name('administrator.user_administrator.non_aktifkan_status');
 });
 
+Route::group(['prefix'  => 'administrator/manajemen_cabang'], function () {
+    Route::get('/', 'Administrator\CabangController@index')->name('administrator.cabang');
+    Route::get('/tambah_cabang', 'Administrator\CabangController@add')->name('administrator.cabang.add');
+    Route::post('/tambah_cabang', 'Administrator\CabangController@post')->name('administrator.cabang.post');
+    Route::patch('/aktifkan_status/{id}', 'Administrator\CabangController@aktifkanStatus')->name('administrator.cabang.aktifkan_status');
+    Route::patch('/non_aktifkan_status/{id}', 'Administrator\CabangController@nonAktifkanStatus')->name('administrator.cabang.non_aktifkan_status');
+});
+
+Route::group(['prefix'  => 'administrator/manajemen_capem'], function () {
+    Route::get('/', 'Administrator\CapemController@index')->name('administrator.capem');
+    Route::get('/tambah_capem', 'Administrator\CapemController@add')->name('administrator.capem.add');
+    Route::post('/tambah_capem', 'Administrator\CapemController@post')->name('administrator.capem.post');
+    Route::patch('/aktifkan_status/{id}', 'Administrator\CapemController@aktifkanStatus')->name('administrator.capem.aktifkan_status');
+    Route::patch('/non_aktifkan_status/{id}', 'Administrator\CapemController@nonAktifkanStatus')->name('administrator.capem.non_aktifkan_status');
+});
+
+Route::group(['prefix'  => 'administrator/manajemen_komentar'], function () {
+    Route::get('/', 'Administrator\KomentarController@index')->name('administrator.komentar');
+    Route::get('/tambah_komentar', 'Administrator\KomentarController@add')->name('administrator.komentar.add');
+    Route::post('/tambah_komentar', 'Administrator\KomentarController@post')->name('administrator.komentar.post');
+    Route::patch('/aktifkan_status/{id}', 'Administrator\KomentarController@aktifkanStatus')->name('administrator.komentar.aktifkan_status');
+    Route::patch('/non_aktifkan_status/{id}', 'Administrator\KomentarController@nonAktifkanStatus')->name('administrator.komentar.non_aktifkan_status');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

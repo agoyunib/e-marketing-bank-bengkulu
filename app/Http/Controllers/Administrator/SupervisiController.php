@@ -12,8 +12,8 @@ class SupervisiController extends Controller
 {
     public function index(){
         $units = Unit::all();
-        $user_supervisis = User::join('units','units.id','users.unit_id')->where('jabatan','supervisi')
-                        ->select('users.id as id','no_nrpp','nm_user','email','nm_unit','jabatan','no_hp','status_user')
+        $user_supervisis = User::join('units','units.id','users.unit_id')->where('role','supervisi')
+                        ->select('users.id as id','no_nrpp','nm_user','email','nm_unit','role','no_hp','status_user')
                         ->get();
         return view('backend/administrator/user_supervisi.index',compact('units','user_supervisis'));
     }
@@ -41,7 +41,7 @@ class SupervisiController extends Controller
             'email'   =>  $request->email,
             'password'   =>  bcrypt($request->password),
             'no_hp'   =>  $request->no_hp,
-            'jabatan' => 'supervisi',
+            'role' => 'supervisi',
         ]);
 
 

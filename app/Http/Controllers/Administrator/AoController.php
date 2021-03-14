@@ -11,32 +11,38 @@ class AoController extends Controller
 {
     public function index(){
         $units = Unit::all();
-        $user_aos = User::join('units','units.id','users.unit_id')->where('jabatan','ao')
-        ->select('users.id as id','no_nrpp','nm_user','nm_unit','email','jabatan','no_hp','status_user')
+        $user_aos = User::join('units','units.id','users.unit_id')->where('role','ao')
+        ->select('users.id as id','no_nrpp','nm_user','nm_unit','email','role','no_hp','status_user')
         ->get();
         return view('backend/administrator/user_ao.index',compact('units','user_aos'));
     }
 
     public function post(Request $request){
+        
+        // return $request->all();
+
         $this->validate($request,[
             'unit_id'   =>  'required',
             'no_nrpp'   =>  'required',
             'nm_user'   =>  'required',
             'email'   =>  'required',
-            'no_tlp'   =>  'required',
+            'password'   =>  'required',
+            'no_hp'   =>  'required',
             
             
         ]);
 
         User::create([
             'nm_user'       =>  $request->nm_user,
-            'unit_id'   =>  'required',
-            'no_nrpp'   =>  'required',
-            'nm_user'   =>  'required',
-            'email'   =>  'required',
-            'no_tlp'   =>  'required',
-            'jabatan' => 'ao'
+            'unit_id'   =>  $request->unit_id,
+            'no_nrpp'   =>  $request->no_nrpp,
+            
+            'email'   =>  $request->email,
+            'password'   =>  bcrypt($request->password),
+            'no_hp'   =>  $request->no_hp,
+            'role' => 'ao',
         ]);
+
 
         return redirect()->route('administrator.user_ao')->with(['success' =>  'user berhasil ditambahkan']);
     }

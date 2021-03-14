@@ -147,7 +147,7 @@
                                    <td>{{ $user_pimpinan->nm_user }}</td>
                                    <td>{{ $user_pimpinan->nm_unit }}</td>
                                    <td>{{ $user_pimpinan->email }}</td>
-                                   <td>{{ $user_pimpinan->jabatan }}</td>
+                                   <td>{{ $user_pimpinan->role }}</td>
                                    <td>{{ $user_pimpinan->no_hp }}</td>
                                    <td>
                                        @if($user_pimpinan->status_user == "1")

@@ -76,7 +76,7 @@
                             </div>
                         @enderror
                     </div>
-{{ $errors }}
+
                     <div class="form-status_unit col-md-4">
                         <label>Password</label>
                         <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id=""></textarea>
@@ -147,7 +147,7 @@
                                    <td>{{ $user_supervisi->nm_user }}</td>
                                    <td>{{ $user_supervisi->nm_unit }}</td>
                                    <td>{{ $user_supervisi->email }}</td>
-                                   <td>{{ $user_supervisi->jabatan }}</td>
+                                   <td>{{ $user_supervisi->role }}</td>
                                    <td>{{ $user_supervisi->no_hp }}</td>
                                    <td>
                                        @if ($user_supervisi->status_user == "1")

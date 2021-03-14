@@ -11,8 +11,8 @@ class PimpinanController extends Controller
 {
     public function index(){
         $units = Unit::all();
-        $user_pimpinans = User::join('units','units.id','users.unit_id')->where('jabatan','pimpinan')
-        ->select('users.id as id','no_nrpp','nm_user','nm_unit','jabatan','email','no_hp','status_user')
+        $user_pimpinans = User::join('units','units.id','users.unit_id')->where('role','pimpinan')
+        ->select('users.id as id','no_nrpp','nm_user','nm_unit','role','email','no_hp','status_user')
         ->get();
         return view('backend/administrator/user_pimpinan.index',compact('units','user_pimpinans'));
     }
@@ -40,7 +40,7 @@ class PimpinanController extends Controller
             'email'   =>  $request->email,
             'password'   =>  bcrypt($request->password),
             'no_hp'   =>  $request->no_hp,
-            'jabatan' => 'pimpinan',
+            'role' => 'pimpinan',
         ]);
 
 

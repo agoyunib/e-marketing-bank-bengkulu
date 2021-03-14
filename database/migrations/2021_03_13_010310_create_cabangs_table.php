@@ -14,7 +14,7 @@ class CreateCabangsTable extends Migration
     public function up()
     {
         Schema::create('cabangs', function (Blueprint $table) {
-            $table->tinyInteger('id');
+            $table->string('id');
             $table->primary('id');
             $table->string('nm_cabang');
             $table->timestamps();

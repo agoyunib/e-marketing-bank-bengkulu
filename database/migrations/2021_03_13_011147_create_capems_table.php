@@ -14,7 +14,7 @@ class CreateCapemsTable extends Migration
     public function up()
     {
         Schema::create('capems', function (Blueprint $table) {
-            $table->tinyInteger('id');
+            $table->string('id');
             $table->primary('id');
             $table->unsignedBigInteger('cabang_id')->constrained('cabangs');
             $table->string('nm_capem');

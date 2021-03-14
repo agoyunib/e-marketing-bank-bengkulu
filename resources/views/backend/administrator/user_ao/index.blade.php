@@ -69,8 +69,17 @@
                    
                     <div class="form-status_unit col-md-4">
                         <label>Email</label>
-                        <input type="email" class="form-control @error('email') is-invalid @enderror" id=""></textarea>
+                        <input type="email" name="email"  class="form-control @error('email') is-invalid @enderror" id=""></textarea>
                         @error('email')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="form-status_unit col-md-4">
+                        <label>Password</label>
+                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id=""></textarea>
+                        @error('password')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -79,7 +88,7 @@
 
                     <div class="form-status_unit col-md-4">
                         <label>Nomor HP</label>
-                        <input type="no_hp" class="form-control @error('no_hp') is-invalid @enderror" id=""></textarea>
+                        <input type="no_hp" name='no_hp' class="form-control @error('no_hp') is-invalid @enderror" id=""></textarea>
                         @error('no_hp')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -137,7 +146,7 @@
                                    <td>{{ $user_ao->nm_user }}</td>
                                    <td>{{ $user_ao->nm_unit }}</td>
                                    <td>{{ $user_ao->email }}</td>
-                                   <td>{{ $user_ao->jabatan }}</td>
+                                   <td>{{ $user_ao->role }}</td>
                                    <td>{{ $user_ao->no_hp }}</td>
                                    <td>
                                        @if ($user_ao->status_user == "1")
